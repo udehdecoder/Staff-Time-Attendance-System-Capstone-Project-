@@ -1,5 +1,8 @@
-const express = require("express")
-const app = express()
+const express = require("express");
+const app = express();
+const connectDB = require("./configs/database");
+require("dotenv").config();
+connectDB();
 
 
 app.get('/', (req, res) =>{
