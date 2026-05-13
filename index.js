@@ -1,10 +1,18 @@
-const express = require("express")
-const app = express()
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
+app.use(express.json());
 
+const connectDB = require("./configs/database")
+const authRoutes = require("./routes/authRoute");
+const userRoutes = require("./routes/userRoute");
 
-app.get('/', (req, res) =>{
-    res.status(200).json("capstone project 22 is running")
-})
-app.listen( 5000, () =>{
-    console.log("capstone project 22 is running on port 5000")
-})
+app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
+connectDB();
+
+const PORT = process.env.PORT 
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
+});
