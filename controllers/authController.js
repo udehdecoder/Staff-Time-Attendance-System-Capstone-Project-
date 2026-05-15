@@ -34,8 +34,8 @@ exports.registerUser = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
+    res.status(500).json({ status: "error" , 
+      message: "internal server",
     });
   }
 };
@@ -80,8 +80,8 @@ exports.loginUser = async (req, res) => {
       user,
     });
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
+    res.status(500).json({ status: "error" ,
+      message: "internal server error"
     });
   }
 };
