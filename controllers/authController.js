@@ -34,6 +34,7 @@ exports.registerUser = async (req, res) => {
     });
 
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       message: error.message,
     });
@@ -63,7 +64,7 @@ exports.loginUser = async (req, res) => {
         message: "Invalid email or password",
       });
     }
-
+    console.log("Reach here")
     // CREATE JWT TOKEN
    const token = jwt.sign(
   {
@@ -80,6 +81,7 @@ exports.loginUser = async (req, res) => {
       user,
     });
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       message: error.message,
     });

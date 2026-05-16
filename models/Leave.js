@@ -1,12 +1,13 @@
+
 const mongoose = require("mongoose");
 
 const leaveSchema = new mongoose.Schema(
     {
-        userId: {
+        userId: [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "user",
+            ref: "User",
             required: true,
-        },
+        }],
         onLeave: {
             type: Boolean,
             enum: [true, false],
