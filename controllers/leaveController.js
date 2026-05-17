@@ -1,4 +1,4 @@
-const leaveModel = require("../models/Leave")
+const leaveModel = require("../models/LeaveModel")
 const userModel = require("../models/userModel")
 const mongoose = require("mongoose")
 
