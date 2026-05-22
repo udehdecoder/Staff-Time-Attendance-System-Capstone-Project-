@@ -8,10 +8,13 @@ const connectDB = require("./configs/database")
 const authRoutes = require("./routes/authRoute");
 const userRoutes = require("./routes/userRoute");
 const leaveRoutes = require("./routes/leaveRoute")
+const attendanceRoutes = require("./routes/attendanceRoutes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/leave", leaveRoutes)
+// Mount attendance routes
+app.use("/api/attendance", attendanceRoutes);
 connectDB();
 
 const PORT = process.env.PORT 
