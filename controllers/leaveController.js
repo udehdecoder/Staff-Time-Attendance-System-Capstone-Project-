@@ -16,7 +16,7 @@ const requestLeave = async (req, res) => {
             userId, purposeOfLeave: purpose, startDate: startdate, endDate: enddate
 
         })
-        res.status(201).json({message: "Request sucessfull submitted"})
+        res.status(201).json({message: "Request sucessfully submitted"})
 
     }
     catch(error){
@@ -85,6 +85,7 @@ const approveLeave = async (req, res) =>{
         res.status(401).json({message: error.message})
     }
 }
+
 const rejectLeave = async (req, res) =>{
       try{
         const { startDate, endDate } = req.body
@@ -103,7 +104,7 @@ const rejectLeave = async (req, res) =>{
                 status: "rejected",
                 startDate, 
                 endDate,
-                onLeave: no
+                onLeave: "no"
             },
                 {new: true}).populate("userId", "name role")
         return res.status(200).json({message: "User leave request updated!!",data: updatedLeaveRequest})
@@ -114,6 +115,18 @@ const rejectLeave = async (req, res) =>{
         console.log(error)
         res.status(401).json({message: error.message})
     }
+}
+exports.deleteLeave = async (req, res) =>{
+    try{
+        const {id} = req.params
+        await leaveModel.findByIdAndDelete(id)
+        res.status(201).json({message: "Leave request delete sucess!!"})
+    }
+    catch(error){
+        console.log(error)
+        res.status(400).json({message: "Sorry something happened, try again "})
+    }
+
 }
 
 module.exports = {getAllLeaveRequest, getLeaveRequest, requestLeave, approveLeave, rejectLeave}

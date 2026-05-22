@@ -1,8 +1,9 @@
-const User = require("../models/User");
+const User = require("../models/userModel");
 
 // @desc    Get all users
 // @route   GET /api/users
 const getAllUsers = async (req, res) => {
+  console.log("enter here")
   try {
     const users = await User.find().select("-password").sort({ createdAt: -1 });
     res.status(200).json({ success: true, count: users.length, data: users });
@@ -29,11 +30,11 @@ const getUserById = async (req, res) => {
 // @route   PUT /api/users/:id
 const updateUser = async (req, res) => {
   try {
-    const { surname, othername, phoneNumber, email, role } = req.body;
+    const { name, phoneNumber, email, role } = req.body;
 
     const user = await User.findByIdAndUpdate(
       req.params.id,
-      { surname, othername, phoneNumber, email, role },
+      { name, phoneNumber, email, role },
       { new: true, runValidators: true },
     ).select("-password");
 
