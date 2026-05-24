@@ -1,151 +1,739 @@
-# capstoneProject22 (Staff Time and Attendance System)
-Techsphere academy backend capstone project for group 22
+
+# Staff Time & Attendance Management System
+
+## Overview
+
+The **Staff Time & Attendance Management System** is a backend REST API developed as a capstone project by Group 22 at Techsphere Academy.
+
+The system helps organizations manage:
+
+- Staff attendance tracking
+- Clock-in and clock-out operations
+- Leave request management
+- User authentication and authorization
+- Admin dashboard operations
+- Employee management
 
 
 
+# Project Information
 
+### Project Name
+Staff Time & Attendance Management System
 
-<Routes and their corresponding requests and result>
+### Repository Name
+Staff-Time-Attendance-System-Capstone-Project
 
-<!-- leave route -->
-
-request leave route (localhost:5000/api/leave/request)
-    PARAMETERS {userId, startdate, endate, purpose }
-    result (status = ok).message("request successfully submited")
-
-
-get one leave request (localhost:5000/api/leave/request/userId)
-    parameters none, Get request
-    ONLY ADMIN AUTHORIZED ROUTE
+### Developed By
+Group 22 – Techsphere Academy Backend Development Cohort
 
 
 
-get all leave request  (localhost:5000/api/leave/getallrequests/)
-    parameters none, Get request
-    ONLY ADMINS AUTHORIZED ROUTE
+# Tech Stack
 
-
-approve leave request (localhost:5000/api/leave/approveleave/id)
-    parameters {startDate, endDate, status}, PATCH request
-    ONLY ADMINS AUTHORIZED ROUTE
-
-
-reject leave request (localhost: 5000/api/leave/rejectleave/id)
-    parameter {startDate, endDate} PATCH REQUEST
-    ADMIN AUTHORIZED ROUE ONLY
-
-
-delete leave request  (localhost: 5000/api/leave
-deleteleave/id)
-    parameter none, delete route
-    ALL USERS AUTHORIZED ROUTE
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT Authentication
+- bcrypt.js
 
 
 
+# Features
+
+- User Authentication & Authorization
+- Attendance Tracking
+- Leave Request System
+- Admin Dashboard
+- Role-Based Access Control
+- Monthly Attendance Summary
+- User Management
+- RESTful API Architecture
 
 
-<!-- attendance route -->
-clock in user (localhost:5000/api/attendance/clock-in)
-    parameters {userId}, POST request 
-    ALL USERS AUTHORIZED ROUTE
+# Installation Guide
 
-clock out user (localhost:5000/api/attendance/clock-out)
-    paramters {userId}, POST request 
-    ALL USERS AUTHORIZED ROUTE
+## Clone Repository
 
-get current attenadance status (localhost:5000/api/attendance/status/:userId)
-    parameters none, GET request 
-    ALL USERS AUTHORIZED ROUTE
+```bash
+git clone <repository-url>
+```
 
+---
 
-get monthly summary (localhost:5000/api/attendance/summary/:userId)
-    parameters none, GET request 
-    ALL USERS AUTHORIZED ROUTE
+## Navigate Into Project Directory
 
+```bash
+cd Staff-Time-Attendance-System-Capstone-Project
+```
 
-get all attendance (localhost:5000/api/attendance/all)
+---
 
-    parameters none, GET request 
-    ONLY ADMIN AUTHORIZED ROUTE
+## Install Dependencies
 
+```bash
+npm install
+```
 
+---
 
-<!-- auth route -->
-register a new user (localhost:5000/api/auth/register)
-    parameter {name, email, password, roles}, POST request
-    ALL USERS AUTHORIZED ROUTE
+## Setup Environment Variables
 
+Create a `.env` file in the root directory and add:
 
-login a regsitered user (localhost:5000/api/auth/login)
-    parameter {email, password}, POST request
-    ALL USERS AUTHORIZED ROUTE
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
 
+---
 
+## Start Development Server
 
-<!-- user route -->
+```bash
+npm run dev
+```
 
-get all users (localhost:5000/api/user)
-    parameter none, GET request 
-    ONLY ADMIN AUTHORIZED ROUTE 
+---
 
-get one user(worker) (localhost:5000/api/user/:id)
-    parameter none, GET request
-    ONLY ADMIN AUTHORIZED ROUTE
+# Base URL
 
-update user (localhost:5000/api/user/:id)
-    parameter {name, phoneNumber, email, role}, PUT request
-    ONLY ADMIN AUTHORIZED ROUTE
+```bash
+http://localhost:5000/api
+```
 
-delete user (localhost:5000/api/user/:id)
-    parameter none, DELETE request
-    ONLY ADMIN AUTHORIZED ROUTE
+---
 
+# Authentication
 
-admin profile (localhost:5000/api/user/profile)
-    paramter none, GET request 
-    ONLY ADMIN AUTHORIZED ROUTE
+The API uses JWT Authentication.
 
+Protected routes require:
 
-Admin dashboard display (localhost:5000/api/user/admin-dashbaord)
-    parameter none, GET request 
-    ONLY ADMIN AUTHORIZED ROUTE
+```bash
+Authorization: Bearer your_token
+```
 
+---
 
+# User Roles
 
+| Role | Access |
+|------|--------|
+| Admin | Full Access |
+| Staff/User | Limited Access |
 
+---
 
+# API ENDPOINTS
 
-<collaborators (group 22 capstone project "Staff Time and Attendance System")>
+# 1. Authentication Routes
 
-1. Udeh Uchechukwu
- udehuchechukwu@gmail.com
+---
 
-2. Abubakr Sofiyyah 
-    Abubakrsofiyyah@gmail.com
+## Register User
 
-3. Oluwasegun Akinyanmi 
-    akinyanmisegun@gmail.com
+### Endpoint
 
-4. Patrick Ighodalo
-    mrigpat10@gmail.com
+```http
+POST /api/auth/register
+```
 
-5. Afolabi Yusuf 
-    afolabiyusufolalekan@gmail.com
+### Description
 
-6. Oladimeji Rebecca 
-    Oladimejirebecca07@gmail.com
+Registers a new user into the system.
 
-7. Chidinma Ogbonna
-    Chidimmajanet01@gmail.com
+### Request Body
 
-8. Aina Oluwatobi Emmanuel
-    ainaoluwatobi3845@gmail.com
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123",
+  "role": "staff"
+}
+```
 
-9. Marvel Chiamaka Uzonicha
-    umcunlimited@gmail.com
+### Success Response
 
-10. Kayode Owoseni
-    kayode.owoseni123@gmail.com
+```json
+{
+  "status": "success",
+  "message": "User registered successfully"
+}
+```
 
-11. Simeon Ajani
-    simeonajani01@gmail.com
+---
+
+## Login User
+
+### Endpoint
+
+```http
+POST /api/auth/login
+```
+
+### Description
+
+Authenticates a registered user.
+
+### Request Body
+
+```json
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+### Success Response
+
+```json
+{
+  "status": "success",
+  "token": "jwt_token_here"
+}
+```
+
+---
+
+# 2. Attendance Routes
+
+---
+
+## Clock In User
+
+### Endpoint
+
+```http
+POST /api/attendance/clock-in
+```
+
+### Authorization
+
+Authenticated Users
+
+### Request Body
+
+```json
+{
+  "userId": "user_id"
+}
+```
+
+### Success Response
+
+```json
+{
+  "message": "Clock in successful"
+}
+```
+
+---
+
+## Clock Out User
+
+### Endpoint
+
+```http
+POST /api/attendance/clock-out
+```
+
+### Authorization
+
+Authenticated Users
+
+### Request Body
+
+```json
+{
+  "userId": "user_id"
+}
+```
+
+### Success Response
+
+```json
+{
+  "message": "Clock out successful"
+}
+```
+
+---
+
+## Get Attendance Status
+
+### Endpoint
+
+```http
+GET /api/attendance/status/:userId
+```
+
+### Authorization
+
+Authenticated Users
+
+### Success Response
+
+```json
+{
+  "status": "Present",
+  "clockInTime": "08:00 AM"
+}
+```
+
+---
+
+## Get Monthly Attendance Summary
+
+### Endpoint
+
+```http
+GET /api/attendance/summary/:userId
+```
+
+### Authorization
+
+Authenticated Users
+
+### Success Response
+
+```json
+{
+  "totalDaysPresent": 20,
+  "totalHoursWorked": "160 hours"
+}
+```
+
+---
+
+## Get All Attendance Records
+
+### Endpoint
+
+```http
+GET /api/attendance/all
+```
+
+### Authorization
+
+Admin Only
+
+### Success Response
+
+```json
+{
+  "status": "success",
+  "data": []
+}
+```
+
+---
+
+# 3. Leave Management Routes
+
+---
+
+## Request Leave
+
+### Endpoint
+
+```http
+POST /api/leave/request
+```
+
+### Authorization
+
+Authenticated Users
+
+### Request Body
+
+```json
+{
+  "userId": "user_id",
+  "startDate": "2026-05-01",
+  "endDate": "2026-05-05",
+  "purpose": "Medical leave"
+}
+```
+
+### Success Response
+
+```json
+{
+  "message": "Request successfully submitted"
+}
+```
+
+---
+
+## Get One Leave Request
+
+### Endpoint
+
+```http
+GET /api/leave/request/:userId
+```
+
+### Authorization
+
+Admin Only
+
+### Success Response
+
+```json
+{
+  "status": "success",
+  "data": {}
+}
+```
+
+---
+
+## Get All Leave Requests
+
+### Endpoint
+
+```http
+GET /api/leave/getallrequests
+```
+
+### Authorization
+
+Admin Only
+
+### Success Response
+
+```json
+{
+  "status": "success",
+  "data": []
+}
+```
+
+---
+
+## Approve Leave Request
+
+### Endpoint
+
+```http
+PATCH /api/leave/approveleave/:id
+```
+
+### Authorization
+
+Admin Only
+
+### Request Body
+
+```json
+{
+  "startDate": "2026-05-01",
+  "endDate": "2026-05-05",
+  "status": "approved"
+}
+```
+
+### Success Response
+
+```json
+{
+  "message": "Leave request approved successfully"
+}
+```
+
+---
+
+## Reject Leave Request
+
+### Endpoint
+
+```http
+PATCH /api/leave/rejectleave/:id
+```
+
+### Authorization
+
+Admin Only
+
+### Request Body
+
+```json
+{
+  "startDate": "2026-05-01",
+  "endDate": "2026-05-05"
+}
+```
+
+### Success Response
+
+```json
+{
+  "message": "Leave request rejected successfully"
+}
+```
+
+---
+
+## Delete Leave Request
+
+### Endpoint
+
+```http
+DELETE /api/leave/deleteleave/:id
+```
+
+### Authorization
+
+Authenticated Users
+
+### Success Response
+
+```json
+{
+  "message": "Leave request deleted successfully"
+}
+```
+
+---
+
+# 4. User Management Routes
+
+---
+
+## Get All Users
+
+### Endpoint
+
+```http
+GET /api/user
+```
+
+### Authorization
+
+Admin Only
+
+### Success Response
+
+```json
+{
+  "status": "success",
+  "data": []
+}
+```
+
+---
+
+## Get One User
+
+### Endpoint
+
+```http
+GET /api/user/:id
+```
+
+### Authorization
+
+Admin Only
+
+### Success Response
+
+```json
+{
+  "status": "success",
+  "data": {}
+}
+```
+
+---
+
+## Update User
+
+### Endpoint
+
+```http
+PUT /api/user/:id
+```
+
+### Authorization
+
+Admin Only
+
+### Request Body
+
+```json
+{
+  "name": "Updated Name",
+  "phoneNumber": "08012345678",
+  "email": "updated@example.com",
+  "role": "staff"
+}
+```
+
+### Success Response
+
+```json
+{
+  "message": "User updated successfully"
+}
+```
+
+---
+
+## Delete User
+
+### Endpoint
+
+```http
+DELETE /api/user/:id
+```
+
+### Authorization
+
+Admin Only
+
+### Success Response
+
+```json
+{
+  "message": "User deleted successfully"
+}
+```
+
+---
+
+## Admin Profile
+
+### Endpoint
+
+```http
+GET /api/user/profile
+```
+
+### Authorization
+
+Admin Only
+
+### Success Response
+
+```json
+{
+  "status": "success",
+  "data": {}
+}
+```
+
+---
+
+## Admin Dashboard
+
+### Endpoint
+
+```http
+GET /api/user/admin-dashboard
+```
+
+### Authorization
+
+Admin Only
+
+### Success Response
+
+```json
+{
+  "totalUsers": 50,
+  "presentToday": 42,
+  "leaveRequests": 5
+}
+```
+
+---
+
+# Error Responses
+
+## Unauthorized Access
+
+```json
+{
+  "message": "Unauthorized access"
+}
+```
+
+---
+
+## Resource Not Found
+
+```json
+{
+  "message": "Resource not found"
+}
+```
+
+---
+
+## Validation Error
+
+```json
+{
+  "message": "Please provide all required fields"
+}
+```
+
+---
+
+# Suggested Future Improvements
+
+- Email Notifications
+- Payroll Integration
+- QR Code Attendance
+- Biometric Authentication
+- Real-Time Monitoring
+- File Upload Support
+- Swagger API Documentation
+- Unit Testing
+- Integration Testing
+
+---
+
+# Collaborators (Group 22)
+
+| Name | Email |
+|------|--------|
+| Udeh Uchechukwu | udehuchechukwu@gmail.com |
+| Abubakr Sofiyyah | abubakrsofiyyah@gmail.com |
+| Oluwasegun Akinyanmi | akinyanmisegun@gmail.com |
+| Patrick Ighodalo | mrigpat10@gmail.com |
+| Afolabi Yusuf | afolabiyusufolalekan@gmail.com |
+| Oladimeji Rebecca | oladimejirebecca07@gmail.com |
+| Chidinma Ogbonna | chidimmajanet01@gmail.com |
+| Aina Oluwatobi Emmanuel | ainaoluwatobi3845@gmail.com |
+| Marvel Chiamaka Uzonicha | umcunlimited@gmail.com |
+| Kayode Owoseni | kayode.owoseni123@gmail.com |
+| Simeon Ajani | simeonajani01@gmail.com |
+
+---
+
+# License
+
+This project was developed for educational purposes as part of the Techsphere Academy Backend Development Capstone Project.
+
+---
+
+# Conclusion
+
+The Staff Time & Attendance Management System provides an efficient backend solution for managing employee attendance, leave requests, and administrative operations.
+
+The project demonstrates practical backend development concepts including:
+
+- Authentication
+- Authorization
+- REST API Design
+- Database Management
+- Error Handling
+- Role-Based Access Control
+- Attendance Logic Implementation
+
+---
