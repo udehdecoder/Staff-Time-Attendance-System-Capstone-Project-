@@ -1,4 +1,4 @@
-# capstoneProject22
+# capstoneProject22 (Staff Time and Attendance System)
 Techsphere academy backend capstone project for group 22
 
 
