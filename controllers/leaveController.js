@@ -116,7 +116,7 @@ const rejectLeave = async (req, res) =>{
         res.status(401).json({message: error.message})
     }
 }
-exports.deleteLeave = async (req, res) =>{
+const deleteLeave = async (req, res) =>{
     try{
         const {id} = req.params
         await leaveModel.findByIdAndDelete(id)
@@ -129,4 +129,4 @@ exports.deleteLeave = async (req, res) =>{
 
 }
 
-module.exports = {getAllLeaveRequest, getLeaveRequest, requestLeave, approveLeave, rejectLeave}
+module.exports = {getAllLeaveRequest, getLeaveRequest, requestLeave, approveLeave, rejectLeave, deleteLeave}
