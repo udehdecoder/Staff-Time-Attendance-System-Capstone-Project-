@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema(
       enum: ["admin", "staff"],
       default: "staff",
     },
+    phoneNumber: {
+      type: String,
+    },
   },
   {
     timestamps: true,

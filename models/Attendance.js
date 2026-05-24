@@ -4,7 +4,7 @@ const attendanceSchema = new mongoose.Schema(
     {
         userId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "user",
+            ref: "User",
             required: true,
         },
         date: {
@@ -37,4 +37,6 @@ const attendanceSchema = new mongoose.Schema(
 // Enforce one attendance record per user per day at the DB level
 attendanceSchema.index({ userId: 1, date: 1 }, { unique: true });
 
-module.exports = mongoose.model("Attendance", attendanceSchema);
+module.exports =
+  mongoose.models.Attendance ||
+  mongoose.model("Attendance", attendanceSchema);

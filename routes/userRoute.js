@@ -28,7 +28,7 @@ router.get("/", authMiddleware, roleMiddleware(["admin"]), getAllUsers);
 
 router
   .route("/:id")
-  .get(authMiddleware, getUserById)
+  .get(authMiddleware, roleMiddleware(["admin"]), getUserById)
   .put(authMiddleware, roleMiddleware(["admin"]), updateUser)
   .delete(authMiddleware, roleMiddleware(["admin"]), deleteUser);
 

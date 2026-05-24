@@ -1,5 +1,5 @@
 const Attendance = require("../models/attendance");
-const LeaveRequest = require("../models/leaveRequest");
+const LeaveRequest = require("../models/Leave");
 const PublicHoliday = require("../models/publicHoliday");
 const { getTodayDate, formatDuration, countWorkingDaysInMonth } = require("../utils/attendanceHelpers");
 
@@ -65,9 +65,10 @@ const clockOut = async (req, res) => {
 // GET /api/attendance/status
 // Returns today's attendance status for the logged-in user
 const getTodayStatus = async (req, res) => {
+  const userId = req.user._id;
   try {
     const today = getTodayDate();
-    const record = await Attendance.findOne({ userId: req.user._id, date: today });
+    const record = await Attendance.findOne({ userId, date: today });
 
     if (!record) {
       return res.status(200).json({ status: "not-clocked-in", data: null });

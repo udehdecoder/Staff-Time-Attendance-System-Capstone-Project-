@@ -17,6 +17,9 @@ app.use("/api/leave", leaveRoutes)
 app.use("/api/attendance", attendanceRoutes);
 connectDB();
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the Attendance Management System API");
+});
 const PORT = process.env.PORT 
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
