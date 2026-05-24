@@ -134,7 +134,6 @@ const getMonthlySummary = async (req, res) => {
       records: presentRecords,
     });
   } catch (error) {
-    console.log(error)
     res.status(500).json({ message: "Failed to fetch summary.", error: error.message });
   }
 };
